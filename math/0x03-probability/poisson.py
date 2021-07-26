@@ -35,3 +35,12 @@ class Poisson():
         pmf = (x * y) / num
 
         return pmf
+
+    def cdf(self, k):
+        """Calculate cdf"""
+        k = int(k)
+
+        if k < 0:
+            return 0
+        
+	return sum([self.pmf(i) for i in range(k + 1)])
