@@ -24,7 +24,7 @@ class Poisson():
 
         if k < 0:
             return 0
-        e = 2.7182818284590452353602874713527
+        e = 2.7182818285
         num = 1
 
         x = e ** (-self.lambtha)
