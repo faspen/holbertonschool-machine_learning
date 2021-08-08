@@ -81,33 +81,18 @@ class DeepNeuralNetwork():
     def gradient_descent(self, Y, cache, alpha=0.05):
         """Gradient descent"""
         m = Y.shape[1]
+        weights = self.weights.copy()
 
-        A1 = self.__cache['A' + str(self.__L)]
-        A2 = self.__cache['A' + str(self.__L - 1)]
-        W = self.__weights['W' + str(self.__L)]
-        b = self.__weights['b' + str(self.__L)]
-        dz_Diction = {}
-        dz1 = A1 - Y
+        for i in range(self.L, 0, -1):
+            if i != self.L:
+                dzi = np.multiply(np.matmul(
+                    weights['W' + str(i + 1)].T, dzi),
+                    (self.cache['A' + str(i)] *
+                     (1 - self.cache['A' + str(i)])))
+            else:
+                dzi = self.cache['A' + str(i)] - Y
+            dwi = (np.matmul(dzi, self.cache['A' + str(i - 1)].T) / m)
+            dbi = (np.sum(dzi, axis=1, keepdims=True) / m)
 
-        dz_Diction['dz' + str(self.__L)] = dz1
-        dw = (1 / m) * np.matmul(A2, dz1.T)
-        db = (1 / m) * np.sum(dz1, axis=1, keepdims=True)
-        self.__weights['W' + str(self.__L)] = (W - (alpha * dw).T)
-        self.__weights['b' + str(self.__L)] = (b - alpha * db)
-
-        for i in range(self.__L - 1, 0, -1):
-            A_prog = self.__cache['A' + str(i)]
-            A_prev = self.__cache['A' + str(i - 1)]
-            W_prog = self.__weights['W' + str(i)]
-            W_jump = self.__weights['W' + str(i + 1)]
-            b_prog = self.__weights['b' + str(i)]
-
-            dz2 = np.matmul(W_jump.T, dz_Diction['dz' + str(i + 1)])
-            dz3 = A_prog * (1 - A_prog)
-            dz32 = dz3 * dz2
-            dw2 = ((1 / m) * np.matmul(A_prev, dz32.T))
-            db2 = ((1 / m) * np.sum(dz32, axis=1, keepdims=True))
-            dz_Diction['dz' + str(i)] = dz32
-
-            self.__weights['W' + str(i)] = (W_prog - (alpha * dw2).T)
-            self.__weights['b' + str(i)] = (b_prog - alpha * db2)
+            self.__weights['W' + str(i)] = weights['W' + str(i)] - alpha * dwi
+            self.__weights['b' + str(i)] = weights['b' + str(i)] - alpha * dbi
