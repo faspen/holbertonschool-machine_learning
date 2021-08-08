@@ -92,7 +92,7 @@ class DeepNeuralNetwork():
         dz_Diction['dz' + str(self.__L)] = dz1
         dw = (1 / m) * np.matmul(A2, dz1.T)
         db = (1 / m) * np.sum(dz1, axis=1, keepdims=True)
-        self.__weights['W' + str(self.__L)] = (W - alpha * dw.T)
+        self.__weights['W' + str(self.__L)] = (W - (alpha * dw).T)
         self.__weights['b' + str(self.__L)] = (b - alpha * db)
 
         for i in range(self.__L - 1, 0, -1):
@@ -109,5 +109,5 @@ class DeepNeuralNetwork():
             db2 = ((1 / m) * np.sum(dz32, axis=1, keepdims=True))
             dz_Diction['dz' + str(i)] = dz32
 
-            self.__weights['W' + str(i)] = (W_prog - alpha * dw2.T)
+            self.__weights['W' + str(i)] = (W_prog - (alpha * dw2).T)
             self.__weights['b' + str(i)] = (b_prog - alpha * db2)
