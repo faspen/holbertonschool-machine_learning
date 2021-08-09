@@ -147,8 +147,8 @@ class DeepNeuralNetwork():
 
     def save(self, filename):
         """Save to file in pickle format"""
-        f_type = ".pkl"
-        filename += f_type
+        if filename.split(".")[-1] != "pkl":
+            filename += ".pkl"
 
         try:
             with open(filename, "wb") as f:
