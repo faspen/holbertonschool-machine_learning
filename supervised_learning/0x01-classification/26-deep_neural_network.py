@@ -150,16 +150,13 @@ class DeepNeuralNetwork():
         if filename.split(".")[-1] != "pkl":
             filename += ".pkl"
 
-        try:
-            with open(filename, "wb") as f:
-                pickle.dump(self, f)
-        except Exception:
-            return None
+        with open(filename, 'wb') as f:
+            pickle.dump(self, f)
 
     def load(filename):
         """Load from pickle file"""
         try:
-            with open(filename, "rb") as f:
+            with open(filename, 'rb') as f:
                 text = pickle.load(f)
                 return text
         except Exception:
