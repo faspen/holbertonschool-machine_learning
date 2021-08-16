@@ -35,14 +35,14 @@ def train_mini_batch(
             np.random.permutation(X_train)
             np.random.permutation(Y_train)
             print("After {} epochs:".format(i))
-            cost_train = sess.run([loss], feed_dict={x: X_train, y: Y_train})
+            cost_train = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             print("\tTraining Cost: {}".format(cost_train))
-            acc_train = sess.run([accuracy], feed_dict={
+            acc_train = sess.run(accuracy, feed_dict={
                                  x: X_train, y: Y_train})
             print("\tTraining Accuracy: {}".format(acc_train))
-            cost_valid = sess.run([loss], feed_dict={x: X_valid, y: Y_valid})
+            cost_valid = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
             print("\tValidation Cost: {}".format(cost_valid))
-            acc_valid = sess.run([accuracy], feed_dict={
+            acc_valid = sess.run(accuracy, feed_dict={
                                  x: X_valid, y: Y_valid})
             print("\tValidation Accuracy: {}".format(acc_valid))
 
@@ -54,10 +54,10 @@ def train_mini_batch(
 
                 if j % 100 == 0 and j != 0 and i != epochs:
                     print('\tStep {}:'.format(j))
-                    steps = sess.run([loss], feed_dict={
+                    steps = sess.run(loss, feed_dict={
                         x: X_train[beg:end], y: Y_train[beg:end]})
                     print('\t\tCost: {}'.format(steps))
-                    acc_steps = sess.run([accuracy], feed_dict={
+                    acc_steps = sess.run(accuracy, feed_dict={
                         x: X_train[beg:end], y: Y_train[beg:end]})
                     print('\t\tAccuracy: {}'.format(acc_steps))
 
