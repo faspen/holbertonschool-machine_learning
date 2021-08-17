@@ -142,3 +142,8 @@ cython_debug/
 
 # Pickle
 *.pkl
+
+# Data
+*.meta
+*.index
+*.data*
