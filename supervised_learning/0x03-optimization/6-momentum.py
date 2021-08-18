@@ -7,4 +7,4 @@ import tensorflow as tf
 
 def create_momentum_op(loss, alpha, beta1):
     """Return momentum operation"""
-    tf.train.MomentumOptimizer(alpha, momentum=beta1).minimize(loss)
+    return tf.train.MomentumOptimizer(alpha, beta1).minimize(loss)
