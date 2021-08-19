@@ -153,8 +153,6 @@ def model(
                 for a in range(batch_num):
                     beg = a * batch_size
                     end = (a + 1) * batch_size
-                    #if end > i:
-                     #   end = i
                     X_mini = X_shuff[beg:end]
                     Y_mini = Y_shuff[beg:end]
 
