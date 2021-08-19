@@ -136,10 +136,10 @@ def model(
             batch_num = i // batch_size + 1
 
         for j in range(epochs + 1):
-            train_cost = sess.run(loss, feed_dict={x: X_train, y: Y_train})
-            train_acc = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
-            val_cost = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
-            val_acc = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
+            train_cost = loss.eval({x: X_train, y: Y_train})
+            train_acc = accuracy.eval({x: X_train, y: Y_train})
+            val_cost = loss.eval({x: X_valid, y: Y_valid})
+            val_acc = accuracy.eval({x: X_valid, y: Y_valid})
 
             print("After {} epochs:".format(j))
             print("\tTraining Cost: {}".format(train_cost))
@@ -147,25 +147,26 @@ def model(
             print("\tValidation Cost: {}".format(val_cost))
             print("\tValidation Accuracy: {}".format(val_acc))
 
-            if j < epochs:
-                X_shuff, Y_shuff = shuffle_data(X_train, Y_train)
+            if j == epochs:
+                break
+            X_shuff, Y_shuff = shuffle_data(X_train, Y_train)
 
-                for a in range(batch_num):
-                    beg = a * batch_size
-                    end = (a + 1) * batch_size
-                    X_mini = X_shuff[beg:end]
-                    Y_mini = Y_shuff[beg:end]
+            for a in range(batch_num):
+                beg = a * batch_size
+                end = (a + 1) * batch_size
 
-                    food = {x: X_mini, y: Y_mini}
-                    sess.run(train_op, feed_dict=food)
+                sess.run(train_op, feed_dict={
+                         x: X_shuff[beg:end], y: Y_shuff[beg:end]})
 
-                    if a % 100 == 0 and a != 0 and j != epochs:
-                        steps = sess.run(loss, feed_dict=food)
-                        acc_steps = sess.run(accuracy, feed_dict=food)
-                        print('\tStep {}:'.format(a))
-                        print('\t\tCost: {}'.format(steps))
-                        print('\t\tAccuracy: {}'.format(acc_steps))
+                if (a + 1) % 100 == 0 and a != 0:
+                    steps = loss.eval(
+                        {x: X_shuff[beg:end], y: Y_shuff[beg:end]})
+                    acc_steps = accuracy.eval(
+                        {x: X_shuff[beg:end], y: Y_shuff[beg:end]})
+                    print('\tStep {}:'.format(a + 1))
+                    print('\t\tCost: {}'.format(steps))
+                    print('\t\tAccuracy: {}'.format(acc_steps))
 
-        sess.run(tf.assign(global_step, global_step + 1))
-
-    return saver.save(sess, save_path)
+            sess.run(tf.assign(global_step, global_step + 1))
+        saver = tf.train.Saver()
+        return saver.save(sess, save_path)
