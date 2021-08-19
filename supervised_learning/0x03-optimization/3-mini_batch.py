@@ -3,7 +3,6 @@
 
 
 import tensorflow as tf
-import numpy as np
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
 
@@ -32,8 +31,7 @@ def train_mini_batch(
         mini_batches = X_train.shape[0] // batch_size
 
         for i in range(epochs + 1):
-            np.random.permutation(X_train)
-            np.random.permutation(Y_train)
+            shuffle_data(X_train, Y_train)
             print("After {} epochs:".format(i))
             cost_train = sess.run(loss, feed_dict={x: X_train, y: Y_train})
             print("\tTraining Cost: {}".format(cost_train))
