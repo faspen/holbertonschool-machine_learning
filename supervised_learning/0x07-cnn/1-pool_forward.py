@@ -11,8 +11,8 @@ def pool_forward(A_prev, kernel_shape, stride=(1, 1), mode='max'):
     kh, kw = kernel_shape
     sh, sw = stride
 
-    zh = ((h_prev - kh) // sh) + 1
-    zw = ((w_prev - kw) // sw) + 1
+    zh = int(((h_prev - kh) // sh) + 1)
+    zw = int(((w_prev - kw) // sw) + 1)
 
     conv = np.zeros((m, zh, zw, c_prev))
     i = np.arange(m)
