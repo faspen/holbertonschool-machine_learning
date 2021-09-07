@@ -12,31 +12,26 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     sh, sw = stride
 
     if padding is 'same':
-        ph = ((((h_prev - 1) * sh) + kh - h_prev) // 2)
-        pw = ((((w_prev - 1) * sw) + kw - w_prev) // 2)
+        ph = int(((sh * h_prev) - sh + kh - h_prev) // 2)
+        pw = int(((sw * w_prev) - sw + kw - w_prev) // 2)
     if padding is 'valid':
-        ph, pw = 0, 0
+        ph = 0
+        pw = 0
 
-    A_prev = np.pad(A_prev, [(0, 0), (ph, ph), (pw, pw),
-                    (0, 0)], 'constant', constant_values=0)
-    zh = ((h_prev + (2 * ph) - kh) // sh) + 1
-    zw = ((w_prev + (2 * pw) - kw) // sw) + 1
-    conv = np.zeros((m, zh, zw, c_new))
-    i = np.arange(0, m)
+    dA_prev = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw),
+                              (0, 0)), 'constant', constant_values=0)
+    zh = int((h_prev + (2 * ph) - kh) // sh) + 1
+    zw = int((w_prev + (2 * pw) - kw) // sw) + 1
+    output = np.zeros((m, zh, zw, c_new))
+    img = np.arange(0, m)
 
-    for z in range(c_new):
-        kern = W[:, :, :, z]
-        i = 0
-        for h in range(zh):
-            j = 0
-            for w in range(zw):
-                output = np.sum(
-                    A_prev[:, h:h + kh, w:w + kw, :] * kern,
-                    axis=1).sum(axis=1).sum(axis=1)
-                output += b[0, 0, 0, z]
-                conv[:, i, j, z] = activation(output)
-                j += 1
-            i += 1
-    return conv
+    for h in range(zh):
+        for w in range(zw):
+            for z in range(c_new):
+                output[img, h, w, z] = activation(
+                    (np.sum(np.multiply(
+                        dA_prev[img, h * sh:kh + h * sh, w * sw:kw + w * sw],
+                        W[:, :, :, z]),
+                        axis=(1, 2, 3))) + b[0, 0, 0, z])
 
-    return conv
+    return output
