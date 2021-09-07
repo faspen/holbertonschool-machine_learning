@@ -32,11 +32,11 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         for h in range(h_new):
             for w in range(w_new):
                 for c in range(c_new):
-                    d_tmp[i, h * sh:h * sh + kh, w * sw:w * sw + \
+                    d_tmp[i, h * sh:h * sh + kh, w * sw:w * sw +
                           kw, :] += dZ[i, h, w, c] * W[:, :, :, c]
-                    dW[:, :, :, c] += tmp_pad[i, h * sh:h * sh + \
+                    dW[:, :, :, c] += tmp_pad[i, h * sh:h * sh +
                                               kh, w * sw:w * sw + kw, :] * \
-                    dZ[i, h, w, c]
+                        dZ[i, h, w, c]
     if padding is 'same':
         d_tmp = d_tmp[:, ph:-ph, pw:-pw, :]
     else:
