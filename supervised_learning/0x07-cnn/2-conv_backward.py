@@ -16,10 +16,11 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     tmp = A_prev
 
     if padding is 'same':
-        ph = int((((sh * h_prev) - sh + kh - h_prev) // 2))
-        pw = int((((sw * w_prev) - sw + kw - w_prev) // 2))
+        ph = int((((h_prev - 1) * sh + kh - h_prev) // 2) + 1)
+        pw = int((((w_prev - 1) * sw + kw - w_prev) // 2) + 1)
     if padding is 'valid':
-        ph, pw = 0, 0
+        ph = 0
+        pw = 0
 
     db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
 
