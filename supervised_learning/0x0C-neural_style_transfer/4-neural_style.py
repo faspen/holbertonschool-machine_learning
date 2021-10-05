@@ -8,4 +8,3 @@ import tensorflow as tf
 
 class NST():
     """Class the performs neural style transfer"""
-
