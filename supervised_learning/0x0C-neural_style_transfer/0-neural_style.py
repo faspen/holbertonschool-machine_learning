@@ -33,8 +33,8 @@ class NST():
             raise TypeError('beta must be a non-negative number')
         tf.enable_eager_execution()
 
-        self.style_image = style_image
-        self.content_image = content_image
+        self.style_image = self.scale_image(style_image)
+        self.content_image = self.scale_image(content_image)
         self.alpha = alpha
         self.beta = beta
 
