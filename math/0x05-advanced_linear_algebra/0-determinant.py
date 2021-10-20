@@ -6,7 +6,7 @@ def determinant_helper(matrix, total=0):
     """Assist in the calculation of determinant"""
     indices = list(range(len(matrix)))
 
-    if len(matrix) == 2:
+    if len(matrix) == 2 and len(matrix[0]) == 2:
         return (matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1])
 
     row = matrix[0]
