@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cofactor calculator"""
+"""Adjugate calculator"""
 
 
 def determinant_helper(matrix, total=0):
