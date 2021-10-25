@@ -38,9 +38,9 @@ class MultiNormal:
 
         det = np.linalg.det(self.cov)
         inv = np.linalg.inv(self.cov)
-        pdf = 1.0 / np.sqrt(((2 * np.pi) ** d) * det)
-        product = np.matmul(np.matmul((x - self.mean).T, inv), (x - self.mean))
-        pdf *= np.exp(-0.5 * product)
-        pdf = pdf[0][0]
+        pdf = 1.0 / ((2 * np.pi) ** (d / 2) * np.sqrt(det))
+        product = np.dot((x - self.mean).T, inv)
+        mult = np.dot(product, (x - self.mean) / -2)
+        pdf *= np.exp(mult)
 
-        return pdf
+        return pdf[0][0]
