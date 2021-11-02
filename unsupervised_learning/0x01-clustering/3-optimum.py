@@ -11,9 +11,10 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     """Test for optimum number of clusters"""
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None
-    if not isinstance(kmin, int) or kmin <= 0:
-        return None, None
-    if not isinstance(kmax, int) or kmax <= 0:
+    if not isinstance(kmin, int) or kmin < 1\
+            or not isinstance(kmax, int) or kmax < 1\
+            or not isinstance(iterations, int) or iterations < 1\
+            or kmin >= kmax:
         return None, None
     if not isinstance(iterations, int) or iterations <= 0:
         return None, None
@@ -26,12 +27,12 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
     d_vars = []
 
     for i in range(kmin, kmax + 1):
-        M, clss = kmeans(X, i, iterations)
-        results.append((M, clss))
+        M, clss = kmeans(X, i, iterations=iterations)
+        var = variance(X, M)
 
         if i == kmin:
-            first = variance(X, M)
-        var = variance(X, M)
+            first = var
+        results.append((M, clss))
         d_vars.append(first - var)
 
     return results, d_vars
