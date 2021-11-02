@@ -15,7 +15,7 @@ def expectation(X, pi, m, S):
     if not isinstance(m, np.ndarray) or m.ndim != 2:
         return None, None
     if not isinstance(S, np.ndarray) or S.ndim != 3:
-        return None
+        return None, None
 
     n, d = X.shape
 
