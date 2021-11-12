@@ -26,15 +26,28 @@ def viterbi(Observation, Emission, Transition, Initial):
     if not (sums == 1.0).all():
         return None, None
 
-    N, M = Emission.shape
+    N = Emission.shape[0]
     T = Observation.shape[0]
     if N != Transition.shape[0] or N != Transition.shape[1]:
         return None, None
 
-    """alpha = np.zeros((N, T))
-    tmp = (Initial * Emission[:, Observation[0]].reshape(-1, 1))
-    alpha[:, 0] = tmp.reshape(-1)
+    alpha = np.zeros((N, T))
+    beta = np.zeros((N, T))
+    path = []
+    alpha[:, 0] = Initial.T * Emission[:, Observation[0]]
 
-    backtrack = np.zeros((N, T))"""
+    for i in range(1, T):
+        for j in range(N):
+            beta[j, i] = np.argmax(
+                Emission[j, Observation[i]] * Transition[:, j] *
+                alpha[:, i - 1])
+            alpha[j, i] = np.max(Emission[j, Observation[i]]
+                                 * Transition[:, j] * alpha[:, i - 1])
+
+    P = np.max(alpha[:, -1], axis=0)
+    path.append(np.argmax(alpha[:, -1], axis=0))
+
+    for i in range(T - 1, 0, -1):
+        path.insert(0, int(beta[int(path[0]), i]))
 
     return path, P
