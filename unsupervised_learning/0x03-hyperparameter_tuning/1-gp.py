@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Initialize Gaussian Process"""
+"""Gaussian Process Prediction"""
 
 
 import numpy as np
@@ -22,3 +22,15 @@ class GaussianProcess():
         second = np.sum(X2 ** 2, 1)
         sqdist = shaper + second - 2 * np.dot(X1, X2.T)
         return self.sigma_f ** 2 * np.exp(-0.5 / self.l ** 2 * sqdist)
+
+    def predict(self, X_s):
+        """Predict mean and stdv of points in a GP"""
+        K_1 = self.kernel(self.X, X_s)
+        K_2 = self.kernel(X_s, X_s)
+        K_inv = np.linalg.inv(self.K)
+
+        mu = K_1.T.dot(K_inv).dot(self.Y).reshape(X_s.shape[0])
+        cov = K_2 - K_1.T.dot(K_inv).dot(K_1)
+        sigma = np.diagonal(cov)
+
+        return mu, sigma
