@@ -48,21 +48,19 @@ class BayesianOptimization():
         pos = []
 
         for i in range(iterations):
-            fx, ei = self.acquisition()
-            fy = self.f(fx)
-            amx = np.argmax(ei)
-            if amx in pos:
-                pos.append(np.argmax(ei))
+            fx, _ = self.acquisition()
+            if fx in pos:
                 break
+            fy = self.f(fx)
             self.gp.update(fx, fy)
-            pos.append(np.argmax(ei))
+            pos.append(fx)
 
         if self.minimize is True:
-            next = np.argmin(self.gp.Y)
+            Y_opt = np.min(self.gp.Y)[np.newaxis]
+            tmp = np.argmin(self.gp.Y)
         else:
-            next = np.argmax(self.gp.Y)
-
-        X_opt = self.gp.X[next]
-        Y_opt = self.gp.Y[next]
+            Y_opt = np.max(self.gp.Y)[np.newaxis]
+            tmp = np.argmax(self.gp.Y)
+        X_opt = self.gp.X[tmp]
 
         return X_opt, Y_opt
