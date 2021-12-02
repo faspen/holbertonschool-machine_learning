@@ -22,3 +22,5 @@ class BidirectionalCell():
         concat = np.concatenate((h_prev, x_t), axis=1)
         h_next = np.matmul(concat, self.Whf) + self.bhf
         h_next = np.tanh(h_next)
+
+        return h_next
