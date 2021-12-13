@@ -2,5 +2,5 @@
 """ """
 
 
-def bag_of_words(sentences, vocab=None):
+def gensim_to_keras(model):
 
