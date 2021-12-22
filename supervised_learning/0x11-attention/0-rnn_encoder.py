@@ -10,7 +10,7 @@ class RNNEncoder(tf.keras.layers.Layer):
 
     def __init__(self, vocab, embedding, units, batch):
         """RNNEncoder class constructor"""
-        super(RNNEncoder, self).__init__()
+        super().__init__()
         self.units = units
         self.batch = batch
         self.embedding = tf.keras.layers.Embedding(vocab, embedding)
