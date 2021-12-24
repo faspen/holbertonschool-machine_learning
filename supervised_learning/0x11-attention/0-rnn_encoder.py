@@ -28,5 +28,5 @@ class RNNEncoder(tf.keras.layers.Layer):
     def call(self, x, initial):
         """Returns outputs and hiddens state of the encoder"""
         inp = self.embedding(x)
-        outputs, hidden = self.gru(inp, initial_stat=initial)
+        outputs, hidden = self.gru(inp, initial_state=initial)
         return outputs, hidden
