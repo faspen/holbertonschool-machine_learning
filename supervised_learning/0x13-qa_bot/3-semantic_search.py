@@ -8,7 +8,7 @@ import os
 
 
 def semantic_search(corpus_path, sentence):
-    """Perform ss on corpus of documents"""
+    """Perform semantic search on corpus of documents"""
     doc = [sentence]
     model = hub.load('https://tfhub.dev/google/universal-sentence' +
                      '-encoder-large/5')
