@@ -24,6 +24,10 @@ Unsupervised Learning is all about models that organiza and classify data be stu
 
 Reinforcement Learning trains models (or agents) to make specific decisions. These decisions are made by rewarding the agent for picking from the best options and learning from them. So far, we've only covered Q-learning, which is one of Reinforcement Learning's most basic concepts.
 
+## Challenges
+
+Machine differences were the big one here. Running the same code on different machines was prone to giving different outputs, which made finding a main platform to use rather difficult at times. Much like my Higher Level Programming project you can visit [here](https://github.com/faspen/holbertonschool-higher_level_programming), the installation of pip packages were an occassional challenge.
+
 ## Creator
 
 Finn Aspenson
