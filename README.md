@@ -10,13 +10,19 @@ Below are the key folders of this repository:
 
 ![](assets/suplearn.png)
 
+Supervised Learning concerns algorithms that learn to classify data by learning from *labeled* data. Here we learned about things like keras, transformers, and recurrent neural networks.
+
 ## [Unsupervised_Learing](https://github.com/faspen/holbertonschool-machine_learning/tree/main/unsupervised_learning)
 
 ![](assets/unlearn.png)
 
+Unsupervised Learning is all about models that organiza and classify data be studying *unlabeled* data. In this area of Machine Learning, we learned about dimensionality reduction, clustering (my favorite), and autoencoders.
+
 ## [Reinforcement_Learning](https://github.com/faspen/holbertonschool-machine_learning/tree/main/reinforcement_learning)
 
 ![](assets/reinlearn.jpeg)
+
+Reinforcement Learning trains models (or agents) to make specific decisions. These decisions are made by rewarding the agent for picking from the best options and learning from them. So far, we've only covered Q-learning, which is one of Reinforcement Learning's most basic concepts.
 
 ## Creator
 
