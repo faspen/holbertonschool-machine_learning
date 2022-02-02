@@ -26,7 +26,7 @@ Reinforcement Learning trains models (or agents) to make specific decisions. The
 
 ## Challenges
 
-Machine differences were the big one here. Running the same code on different machines was prone to giving different outputs, which made finding a main platform to use rather difficult at times. Much like my Higher Level Programming project you can visit [here](https://github.com/faspen/holbertonschool-higher_level_programming), the installation of pip packages were an occassional challenge.
+Machine differences were the big one here. Running the same code on different machines was prone to giving different outputs, which made finding a main platform to use rather difficult at times. Much like my Higher Level Programming repository you can visit [here](https://github.com/faspen/holbertonschool-higher_level_programming), the installation of pip packages were an occassional challenge.
 
 ## Creator
 
