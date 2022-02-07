@@ -34,4 +34,4 @@ Finn Aspenson
 
 * [Twitter](https://twitter.com/FAspenson)
 * [LinkedIn](https://www.linkedin.com/in/finn-aspenson-0a23841b6/)
-* Here's a notable [project](https://github.com/mlaizure/dragonfly)
+* Here is a notable [project](https://github.com/mlaizure/dragonfly)
