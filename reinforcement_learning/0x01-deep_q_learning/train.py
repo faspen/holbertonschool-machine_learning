@@ -34,13 +34,13 @@ def create_CNN_q_model():
 
 def create_agent(model, actions):
     """Create agent that plays breakout"""
-    memory = SequentialMemory(limit=75000, window_length=actions)
+    memory = SequentialMemory(limit=20000, window_length=actions)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps',
                                   value_max=1., value_min=.1,
-                                  value_test=.05, nb_steps=75000)
+                                  value_test=.05, nb_steps=20000)
     agent = DQNAgent(model, policy=policy, enable_double_dqn=True,
                      enable_dueling_network=False, dueling_type='avg',
-                     nb_actions=actions, memory=memory, nb_steps_warmup=75000,
+                     nb_actions=actions, memory=memory, nb_steps_warmup=20000,
                      train_interval=4, delta_clip=1.)
 
     return agent
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     model = create_CNN_q_model()
     dqn = create_agent(model, actions)
     dqn.compile(K.optimizers.Adam(lr=0.00025), metrics=['mae'])
-    dqn.fit(env, nb_steps=75000, visualize=False, verbose=2)
+    dqn.fit(env, nb_steps=20000, visualize=False, verbose=2)
 
     # Save weights
     dqn.save_weights('policy.h5', overwrite=True)
