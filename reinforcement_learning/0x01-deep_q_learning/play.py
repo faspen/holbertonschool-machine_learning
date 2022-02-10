@@ -8,7 +8,8 @@ create_agent = __import__('train.py').create_agent
 create_CNN_q_model = __import__('train.py').create_CNN_q_model
 
 
-if __name__ == "__main__":
+def play():
+    """Load the agent and play 5 games of Breakout"""
     env = gym.make('Breakout-v0')
     env.reset()
 
@@ -19,3 +20,7 @@ if __name__ == "__main__":
     dqn.compile(K.optimizers.Adam(lr=0.00025), metrics=['mae'])
     dqn.load_weights('policy.h5')
     dqn.test(env, nb_episodes=5, visualize=True)
+
+
+if __name__ == "__main__":
+    play()
