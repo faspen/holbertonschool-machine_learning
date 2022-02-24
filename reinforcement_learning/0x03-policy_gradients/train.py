@@ -30,13 +30,13 @@ def train(env, nb_episodes, alpha=0.000045, gamma=0.98, show_result=False):
                 break
             state = next[None, :]
 
+        score.append(total)
+        print("[{}]: [{}]".format(episode, total), end="\r", flush=False)
+
         for i in range(len(grads)):
             W += (alpha * grads[i] *
                   sum([y * (gamma ** y) for x, y in enumerate(
                       rewards[i:]
                   )]))
-
-        score.append(total)
-        print("[{}]: [{}]".format(episode, total), end="\r", flush=False)
 
     return score
