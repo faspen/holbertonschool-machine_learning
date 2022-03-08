@@ -15,8 +15,7 @@ if __name__ == "__main__":
     if r.status_code != 200:
         if r.status_code == 403:
             reset = int(r.headers.get('X-Ratelimit-Reset'))
-            current = time.time()
-            min = reset - current
+            min = int(reset) - time.time()
             min = round(min / 60)
 
             print("Resest in {} min".format(min))
