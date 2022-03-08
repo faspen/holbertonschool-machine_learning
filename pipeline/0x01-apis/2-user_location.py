@@ -18,7 +18,7 @@ if __name__ == "__main__":
             min = int(reset) - time.time()
             min = round(min / 60)
 
-            print("Resets in {} min".format(min))
+            print("Reset in {} min".format(min))
             exit()
     user = r.json()
     loc = user.get('location')
