@@ -1,0 +1,2 @@
+// file count
+db.school.count()

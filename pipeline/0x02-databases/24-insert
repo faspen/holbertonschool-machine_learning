@@ -1,0 +1,2 @@
+// put a doc into a collection
+db.school.insert({name: "Holberton School"});
